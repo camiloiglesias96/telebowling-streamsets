@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+pyfiglet = "*"
+peewee = "*"
+pymysql = "*"
+pylint = "*"
+pep8 = "*"
+pymssql = "*"
+buslane = "*"
+termcolor = "*"
+
+[requires]
+python_version = "3.7"
