@@ -28,23 +28,23 @@ class JSONField(TextField):
 class TableChecksum(BaseModel):
     table_name = CharField(primary_key=True, unique=True, index=True)
     checksum = BigIntegerField(null=True, default=None)
+    last_inserted_id = BigIntegerField(null=True)
     last_update = DateTimeField()
 
     class Meta:
-        database = mysql
         table_name = 'table_checksums'
         primary_key= False
 
 
 """ Table: FailedRequest """
 class FailedRequest(BaseModel):
-    id = UUIDField(primary_key=False)
+    id = UUIDField(primary_key=True)
     url = CharField(null=False)
     data = JSONField(null=True)
+    persisted = BooleanField(default=False)
     created_at = DateTimeField()
     updated_at = DateTimeField()
 
     class Meta:
-        database = mysql
         table_name = 'failed_requests'
         primary_key = False
