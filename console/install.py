@@ -10,6 +10,9 @@ from database.mysql import TableChecksum
 from database.mongodb import MongoDB
 from checksum_system.checksums import Checksum
 
+print(Checksum().get_checksum_differences())
+exit()
+
 colorama.init()
 
 bowling_system = App().get_current_bowling_system()
@@ -27,7 +30,7 @@ if bowling_system is not None:
 
     records = []
 
-    mongoClient = MongoDB().client
+    mongoClient = MongoDB().get_client()
 
     for table in base_system_tables:
         record = {

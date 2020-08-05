@@ -12,3 +12,9 @@ class MongoDB:
         self.client = MongoClient('{base_url}'.format(
             base_url=getenv('MONGODB_URL')
         ))
+
+    def get_client(self):
+        if self.client is not None:
+            return self.client
+        else:
+            raise ConnectionError('Connection error to MongoDB')

@@ -12,9 +12,9 @@ pymysql = "*"
 pylint = "*"
 pep8 = "*"
 pymssql = "*"
-buslane = "*"
 termcolor = "*"
 pymongo = "*"
+pypubsub = "*"
 
 [requires]
 python_version = "3.7"

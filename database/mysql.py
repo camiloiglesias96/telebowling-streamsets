@@ -31,6 +31,13 @@ class TableChecksum(BaseModel):
     last_inserted_id = BigIntegerField(null=True)
     last_update = DateTimeField()
 
+    @property
+    def last_inserted(self):
+        if self.last_inserted_id is not None:
+            return self.last_inserted_id
+        else:
+            return 0
+
     class Meta:
         table_name = 'table_checksums'
         primary_key= False

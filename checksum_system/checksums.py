@@ -19,6 +19,27 @@ class Checksum(SqlServer):
             table_name=table_name
         ))
 
+    def get_all_current_checksums_from_sql_server(self):
+        checksums = []
+        bowling_sys_tables = self.app.get_current_bowling_system().tables
+        for table in bowling_sys_tables:
+            checksum_value = self.get_base_checksum_from_table(table)
+            checksums.append({'table_name': table, 'checksum': checksum_value[0][0]})
+        return checksums
+
+    def get_all_current_checksums(self):
+        return [check for check in TableChecksum.select(TableChecksum.table_name, TableChecksum.checksum).dicts()]
+
+    def get_checksum_differences(self):
+        current_checksum = self.get_all_current_checksums_from_sql_server()
+        sqlserver_checksum = self.get_all_current_checksums()
+        diff = [i for i in current_checksum + sqlserver_checksum if i not in current_checksum or i not in sqlserver_checksum]
+        result = len(diff) == 0
+        if result:
+            return result
+        else:
+            return diff
+
     def update_table_checksums(self):
         bowling_sys = self.app.get_current_bowling_system().tables
         for table in bowling_sys:
