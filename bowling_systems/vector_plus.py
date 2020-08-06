@@ -5,6 +5,8 @@ class VectorPlusTwoEight(BowlingSystem):
     
     tables = []
 
+    id_names = {}
+
     collections = {}
 
     def get_bowling_system_name(self):
@@ -16,6 +18,8 @@ class VectorPlusFive(BowlingSystem):
     """ Brunswick Vector Plus 5 """
     
     tables = []
+
+    id_names = {}
 
     collections = {}
 

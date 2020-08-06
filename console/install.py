@@ -10,9 +10,6 @@ from database.mysql import TableChecksum
 from database.mongodb import MongoDB
 from checksum_system.checksums import Checksum
 
-print(Checksum().get_checksum_differences())
-exit()
-
 colorama.init()
 
 bowling_system = App().get_current_bowling_system()

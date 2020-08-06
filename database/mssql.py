@@ -18,8 +18,8 @@ class SqlServer:
         """ Get the current cursor on SQL Server connection """
         return self.connection.cursor(as_dict=as_dict)
 
-    def raw_query(self, query: str):
+    def raw_query(self, query: str, as_dict: bool):
         """ Run a raw query with the current open connection """
-        cursor = self.cursor(as_dict=False)
+        cursor = self.cursor(as_dict=as_dict)
         cursor.execute(query)
         return cursor.fetchall()

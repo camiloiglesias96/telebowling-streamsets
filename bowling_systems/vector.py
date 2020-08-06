@@ -14,6 +14,17 @@ class VectorThreeOne(BowlingSystem):
         '[CLASSIC_BOWLING].[dbo].[SETUP]'
     ]
 
+    id_names = {
+        '[CLASSIC_LANELOG].[dbo].[LANELOG]': 'lanelog_id',
+        '[CLASSIC_POS].[dbo].[EMPLOYEE]': 'id',
+        '[CLASSIC_POS].[dbo].[RECEIPT_RECORD]': 'receipt_record_id',
+        '[CLASSIC_POS].[dbo].[PLU_LIST]': 'plu_id',
+        '[CLASSIC_POS].[dbo].[RECEIPT]': 'receipt_id',
+        '[CLASSIC_BOWLING].[dbo].[WAITLIST]': 'id',
+        '[CLASSIC_BOWLING].[dbo].[RESERVATION]': 'reservation_id',
+        '[CLASSIC_BOWLING].[dbo].[ERROR_LOG]': 'log_id'
+    }
+
     collections = {
         '[CLASSIC_LANELOG].[dbo].[LANELOG]': 'lanelogs',
         '[CLASSIC_POS].[dbo].[EMPLOYEE]': 'employees',

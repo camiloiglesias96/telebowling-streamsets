@@ -17,7 +17,7 @@ class Checksum(SqlServer):
         """
         return self.raw_query(query.format(
             table_name=table_name
-        ))
+        ), as_dict=False)
 
     def get_all_current_checksums_from_sql_server(self):
         checksums = []
@@ -33,10 +33,10 @@ class Checksum(SqlServer):
     def get_checksum_differences(self):
         current_checksum = self.get_all_current_checksums_from_sql_server()
         sqlserver_checksum = self.get_all_current_checksums()
-        diff = [i for i in current_checksum + sqlserver_checksum if i not in current_checksum or i not in sqlserver_checksum]
+        diff = [i for i in current_checksum if i not in sqlserver_checksum]
         result = len(diff) == 0
         if result:
-            return result
+            return None
         else:
             return diff
 

@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 
+from app.app import App
 from pubsub import pub
 
 # ---------- LISTENERS ---------- #
-class ChecksumMismatch:
+class Listeners:
 
-    def __call__(self, topic=pub.AUTO_TOPIC):
-        print('All rigth')
+    def onChecksumMismatch(self, msg: set):
+        App().log('DEBUG', msg=msg)
 
+
+listeners = Listeners()
 
 # ---------- TOPICS SUSCRIPTIONS ---------- #
-pub.subscribe(ChecksumMismatch(), 'daemon.checksum_mismatch')
+pub.subscribe(listeners.onChecksumMismatch, 'checksum_mismatch')

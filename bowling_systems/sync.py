@@ -5,6 +5,8 @@ class BrunswickSync(BowlingSystem):
 
     tables = []
 
+    id_names = {}
+
     collections = {}
 
     def get_bowling_system_name(self):

@@ -2,8 +2,7 @@
 
 from pubsub import pub
 
-# ---------- DISPATCHER ---------- #
-class Dispatcher:
+# ---------- DISPATCHERS ---------- #
 
-    def dispatch(self, topic: str, **kwargs):
-        pub.sendMessage(topic, **kwargs)
+def doChecksumMismatch(msg):
+    pub.sendMessage('checksum_mismatch', msg=msg)
