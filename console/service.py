@@ -27,4 +27,4 @@ class Main:
 if __name__ == '__main__':
     main_service = Main()
     while True:
-        threading.Thread(target=main_service.run(), daemon=True).start
+        threading.Thread(target=main_service.run(), daemon=True).start()

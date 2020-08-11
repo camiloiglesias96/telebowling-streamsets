@@ -15,6 +15,7 @@ pymssql = "*"
 termcolor = "*"
 pymongo = "*"
 pypubsub = "*"
+progress = "*"
 
 [requires]
 python_version = "3.7"

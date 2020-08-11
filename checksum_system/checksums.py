@@ -40,12 +40,12 @@ class Checksum(SqlServer):
         else:
             return diff
 
-    def update_table_checksums(self):
+    def update_table_checksums(self, install: bool):
         bowling_sys = self.app.get_current_bowling_system().tables
         for table in bowling_sys:
-            checksum = self.get_base_checksum_from_table(table)
+            checksum = self.get_base_checksum_from_table(table)[0][0] if not install else 0
             query = TableChecksum().update(
-                checksum=checksum[0][0],
+                checksum=checksum,
                 last_update=datetime.today()
             ).where(TableChecksum.table_name == table)
             query.execute()

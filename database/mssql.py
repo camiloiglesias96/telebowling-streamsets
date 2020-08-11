@@ -2,6 +2,10 @@ import pymssql
 from os import getenv
 
 class SqlServer:
+    """
+        SQL Server Connection Manager
+        @author Telebowling
+    """
 
     connection = None
 
@@ -22,4 +26,6 @@ class SqlServer:
         """ Run a raw query with the current open connection """
         cursor = self.cursor(as_dict=as_dict)
         cursor.execute(query)
-        return cursor.fetchall()
+        data = cursor.fetchall()
+        cursor.close()
+        return data

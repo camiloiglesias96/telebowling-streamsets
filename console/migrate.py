@@ -1,4 +1,4 @@
 from database.mysql import *
 
 mysql.connect()
-mysql.create_tables([TableChecksum, FailedRequest])
+mysql.create_tables([TableChecksum, FailedRequest, ServiceSettings])
