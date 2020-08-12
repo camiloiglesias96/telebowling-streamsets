@@ -1,0 +1,10 @@
+[Unit]
+Description=AutoSSH Telebowling reverse tunnel service for $domain $board_id -> $ssh_port
+After=network.target
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+ExecStart=/usr/bin/autossh -M 0 -o "ExitOnForwardFailure=yes" -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -NR $board_id:127.0.0.1:$ssh_port $user@$domain -i $cert
+
+[Install]
+WantedBy=multi-user.target

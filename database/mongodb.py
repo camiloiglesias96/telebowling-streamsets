@@ -41,7 +41,7 @@ class MongoDB:
         return dict_item
         
     def get_client(self):
-        """ Get MongoDB from client for this base connector """"
+        """ Get MongoDB from client for this base connector """
         if self.client is not None:
             return self.client
         else:
