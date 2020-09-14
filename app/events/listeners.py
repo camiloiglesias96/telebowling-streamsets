@@ -30,7 +30,6 @@ class Listeners:
                     mongoClient[getenv('BOARD_ID')][collection].delete_many({})
                     current_checksum = Checksum().get_base_checksum_from_table(table)
                     update = TableChecksum.update(last_inserted_id=None, checksum=current_checksum[0][0], last_update=datetime.today()).where(TableChecksum.table_name == table)
-                    truncate = False
                     update.execute()
                     pass
                 truncate = True
