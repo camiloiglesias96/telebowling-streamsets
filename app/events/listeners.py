@@ -65,8 +65,7 @@ class Listeners:
                         mongo_insert = mongoClient[getenv('BOARD_ID')][collection].insert_one(datum)
                         if mongo_insert:
                             current_checksum = Checksum().get_base_checksum_from_table(table)
-                            identificator = table_data[-1][id_key] if id_key is not None else None
-                            update = TableChecksum.update(last_inserted_id=identificator, checksum=current_checksum[0][0], last_update=datetime.today()).where(TableChecksum.table_name == table)
+                            update = TableChecksum.update(last_inserted_id=None, checksum=current_checksum[0][0], last_update=datetime.today()).where(TableChecksum.table_name == table)
                             truncate = False
                             update.execute()
         mongoClient.close()
