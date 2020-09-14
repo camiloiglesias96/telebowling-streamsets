@@ -30,6 +30,9 @@ class BowlingSystem(ABC):
     # Represent the bowling system tables list
     tables = []
 
+    # Represent the collections to be emptied in every sync action 
+    sync_truncating = []
+
     def __init__(self):
         self.mssql = SqlServer()
 
@@ -67,6 +70,11 @@ class BowlingSystem(ABC):
             end=end
         )
         return self.mssql.raw_query(query, as_dict=True)
+
+    @abstractmethod
+    def get_broken_lines_from_mssql(self, table_name: str, field: str, exp: str):
+        """ Get broken lines from bowling system """
+        pass
 
     def get_last_id_from_mssql(self, table_name:str, field: str):
         """ Get the last ID from SQL Server Table """

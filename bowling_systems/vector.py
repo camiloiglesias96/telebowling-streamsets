@@ -71,6 +71,20 @@ class VectorThreeOne(BowlingSystem):
         'settings': MongoDB._UPSERT
     }
 
+    sync_truncating = {
+        '[CLASSIC_BOWLING].[dbo].[SETUP]': 'BrokenLane'
+    }
+
+    def get_broken_lines_from_mssql(self, table_name: str, field: str, exp: str):
+        query = """
+            SELECT {field} FROM {table} WHERE {field} LIKE '%{exp}%' 
+        """.format(
+            field=field,
+            table=table_name,
+            exp=exp
+        )
+        return self.mssql.raw_query(query, as_dict=True)
+
     def get_bowling_system_name(self):
         return 'BRUNSWICK_VECTOR3'
 
