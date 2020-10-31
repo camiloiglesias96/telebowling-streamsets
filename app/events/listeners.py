@@ -1,12 +1,15 @@
 #!/usr/bin/python3
 
+import uuid
 from os import getenv
 from pubsub import pub
 from app.app import App
 from datetime import datetime
+from app.events import dispatchers
+from app.api.api import ApiConnector 
 from database.mssql import SqlServer
 from database.mongodb import MongoDB
-from database.mysql import TableChecksum
+from database.mysql import TableChecksum, FailedRequest
 from checksum_system.checksums import Checksum
 
 # ---------- LISTENERS ---------- #
@@ -68,9 +71,31 @@ class Listeners:
                             update = TableChecksum.update(last_inserted_id=None, checksum=current_checksum[0][0], last_update=datetime.today()).where(TableChecksum.table_name == table)
                             truncate = False
                             update.execute()
+        dispatchers.doBoardPushedData(msg)
         mongoClient.close()
 
-listeners = Listeners()
+    def onDataPushed(self, msg: set):
+        """ Event dispatched after checksum mismatch data successfully loaded in Data Lake """
+        api = ApiConnector()
+        url = "{base}/api/board/{board}/push".format(
+            base=App().get_api_setting('api_base_url'), 
+            board=App().get_api_setting('api_board')
+        )
+        result = api.get(
+            url
+        )
+        if result is None:
+            failed_request = {
+                'id': uuid.uuid4(),
+                'url': url,
+                'data': result,
+                'persisted': result is not None,
+                'created_at': datetime.today(),
+                'updated_at': datetime.today()
+            }
+            FailedRequest().insert(failed_request).execute()
 
 # ---------- TOPICS SUSCRIPTIONS ---------- #
+listeners = Listeners()
 pub.subscribe(listeners.onChecksumMismatch, 'checksum_mismatch')
+pub.subscribe(listeners.onDataPushed, 'board_pushed_data')

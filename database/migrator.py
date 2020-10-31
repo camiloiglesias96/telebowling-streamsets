@@ -44,17 +44,18 @@ class Migrator:
         bw_system = self.app.get_current_bowling_system()
         field = bw_system.get_table_field_name(table)
         last_id = bw_system.get_last_id_from_mssql(table, field)
-        while last_id > last_inserted:
-            datum = bw_system.get_data_from_mssql_by_range_id(table, field, last_inserted, range_fetch)
-            if bw_system.table_needs_cast(table):
-                datum = [MongoDB().cast_data_type(d) for d in datum]
-            insert = client[getenv('BOARD_ID')][collection].insert_many(datum)
-            if insert.inserted_ids:
-                last_inserted += range_fetch
-                range_fetch += last_inserted
-            time.sleep(20)
-        client.close()
-        TableChecksum.update(last_inserted_id=last_id).where(TableChecksum.table_name == table)
+        if last_id:
+            while last_id > last_inserted:
+                datum = bw_system.get_data_from_mssql_by_range_id(table, field, last_inserted, range_fetch)
+                if bw_system.table_needs_cast(table):
+                    datum = [MongoDB().cast_data_type(d) for d in datum]
+                insert = client[getenv('BOARD_ID')][collection].insert_many(datum)
+                if insert.inserted_ids:
+                    last_inserted += range_fetch
+                    range_fetch += last_inserted
+                time.sleep(20)
+            client.close()
+            TableChecksum.update(last_inserted_id=last_id).where(TableChecksum.table_name == table)
 
     def persist_small_datum(self, table: str, collection: str):
         """ Migrate small datum """
@@ -62,7 +63,7 @@ class Migrator:
         bw_system = self.app.get_current_bowling_system()
         datum = bw_system.get_data_from_system_table(table)
         if bw_system.table_needs_cast(table):
-                datum = [MongoDB().cast_data_type(d) for d in datum]
-        insert = client[getenv('BOARD_ID')][collection].insert_many(datum)
-        if insert.inserted_ids:
-            client.close()
+            datum = [MongoDB().cast_data_type(d) for d in datum]
+        if len(datum) > 0:
+            client[getenv('BOARD_ID')][collection].insert_many(datum)
+        client.close()

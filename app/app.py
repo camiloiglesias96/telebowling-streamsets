@@ -24,7 +24,8 @@ class App:
     # Define the api settings
     api_configuration = {
         'api_base_url': getenv('API_URL'),
-        'api_token': getenv('API_TOKEN')
+        'api_token': getenv('API_TOKEN'),
+        'api_board': getenv('API_BOARD')
     }
 
     # Base system params

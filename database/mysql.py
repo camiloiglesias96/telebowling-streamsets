@@ -48,8 +48,9 @@ class FailedRequest(BaseModel):
     id = UUIDField(primary_key=True)
     url = CharField(null=False)
     data = JSONField(null=True)
+    persisted = BooleanField(default=False)
     created_at = DateTimeField()
-    updated_at = DateTimeField()
+    updated_at = DateTimeField(null=True)
 
     class Meta:
         table_name = 'failed_requests'

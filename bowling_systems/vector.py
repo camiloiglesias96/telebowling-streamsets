@@ -16,7 +16,8 @@ class VectorThreeOne(BowlingSystem):
         '[CLASSIC_BOWLING].[dbo].[WAITLIST]',
         '[CLASSIC_BOWLING].[dbo].[RESERVATION]',
         '[CLASSIC_BOWLING].[dbo].[ERROR_LOG]',
-        '[CLASSIC_BOWLING].[dbo].[SETUP]'
+        '[CLASSIC_BOWLING].[dbo].[SETUP]',
+        '[CLASSIC_POS].[dbo].[PLU_GROUP]'
     ]
 
     big_datums = [
@@ -32,7 +33,8 @@ class VectorThreeOne(BowlingSystem):
         '[CLASSIC_BOWLING].[dbo].[WAITLIST]': 'id',
         '[CLASSIC_BOWLING].[dbo].[RESERVATION]': 'reservation_id',
         '[CLASSIC_BOWLING].[dbo].[ERROR_LOG]': 'log_id',
-        '[CLASSIC_BOWLING].[dbo].[SETUP]': 'parameter'
+        '[CLASSIC_BOWLING].[dbo].[SETUP]': 'parameter',
+        '[CLASSIC_POS].[dbo].[PLU_GROUP]': 'plu_group_id'
     }
 
     collections = {
@@ -44,7 +46,8 @@ class VectorThreeOne(BowlingSystem):
         '[CLASSIC_BOWLING].[dbo].[WAITLIST]': 'waiting_customers',
         '[CLASSIC_BOWLING].[dbo].[RESERVATION]': 'reservations',
         '[CLASSIC_BOWLING].[dbo].[ERROR_LOG]': 'errors',
-        '[CLASSIC_BOWLING].[dbo].[SETUP]': 'settings'
+        '[CLASSIC_BOWLING].[dbo].[SETUP]': 'settings',
+        '[CLASSIC_POS].[dbo].[PLU_GROUP]': 'groups'
     }
 
     table_has_casts = {
@@ -90,23 +93,11 @@ class VectorThreeOne(BowlingSystem):
 
 
 
-class VectorFive(BowlingSystem):
+class VectorFive(VectorThreeOne):
     """
         Brunswick Vector 5 System
         @author Telebowling
     """
-
-    tables = []
-
-    table_has_casts = {}
-
-    big_datums = []
-
-    id_names = {}
-
-    collections = {}
-
-    mongo_actions = {}
 
     def get_bowling_system_name(self):
         return 'BRUNSWICK_VECTOR5'
