@@ -47,7 +47,7 @@ class VectorThreeOne(BowlingSystem):
         '[CLASSIC_BOWLING].[dbo].[RESERVATION]': 'reservations',
         '[CLASSIC_BOWLING].[dbo].[ERROR_LOG]': 'errors',
         '[CLASSIC_BOWLING].[dbo].[SETUP]': 'settings',
-        '[CLASSIC_POS].[dbo].[PLU_GROUP]': 'groups'
+        '[CLASSIC_POS].[dbo].[PLU_GROUP]': 'product_groups'
     }
 
     table_has_casts = {
@@ -55,6 +55,7 @@ class VectorThreeOne(BowlingSystem):
         '[CLASSIC_POS].[dbo].[EMPLOYEE]': False,
         '[CLASSIC_POS].[dbo].[RECEIPT_RECORD]': False,
         '[CLASSIC_POS].[dbo].[PLU_LIST]': False,
+        '[CLASSIC_POS].[dbo].[PLU_GROUP]': False,
         '[CLASSIC_POS].[dbo].[RECEIPT]': True,
         '[CLASSIC_BOWLING].[dbo].[WAITLIST]': True,
         '[CLASSIC_BOWLING].[dbo].[RESERVATION]': True,
@@ -67,6 +68,7 @@ class VectorThreeOne(BowlingSystem):
         'employees': MongoDB._UPSERT,
         'receipt_records': MongoDB._INSERT,
         'products': MongoDB._UPSERT,
+        'product_groups': MongoDB._UPSERT,
         'receipts': MongoDB._INSERT,
         'waiting_customers': MongoDB._INSERT,
         'reservations': MongoDB._INSERT,
