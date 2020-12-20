@@ -24,7 +24,7 @@ class MongoDB:
         """ Perfom the MongoDB connection """
         self.client = MongoClient('{base_url}'.format(
             base_url=getenv('MONGODB_URL')
-        ))
+        ), maxPoolSize=100, socketTimeoutMS=10000, connectTimeoutMS=10000)
 
     def cast_data_type(self, dict_item):
         """ Cast builtin Python classes to MongoDB BSON classes """

@@ -43,9 +43,9 @@ class Checksum(SqlServer):
     def update_table_checksums(self, install: bool):
         bowling_sys = self.app.get_current_bowling_system().tables
         for table in bowling_sys:
-            checksum = self.get_base_checksum_from_table(table)[0][0] if not install else 0
+            checksum = self.get_base_checksum_from_table(table)
             query = TableChecksum().update(
-                checksum=checksum,
+                checksum=checksum[0][0] if not install else 0,
                 last_update=datetime.today()
             ).where(TableChecksum.table_name == table)
             query.execute()

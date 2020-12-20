@@ -6,6 +6,16 @@ import pymssql
 class BowlingSystem(ABC):
     """
     Bowling system abstract base class
+
+    Attributes:
+        __BROKEN_LANE   Define the lane status for broken lanes (default: 1)
+        tables          Define the tables to be synced with the cloud data lake
+        big_datums      Define which datums are really biggest and need be chunked to sync
+        table_has_cast  Define which tables from mssql has data to be casted after sync
+        id_names        Define the name of identifier in the SQL Server table
+        collections     Define a key value relation betwenn MongoDB collection and SQL Server table
+        mongo_action    Define the actions to exec by collection name
+        sync_truncating Define which collection needs be truncated in every sync proccess
     """
 
     # Represent SQL Server Connection
@@ -80,6 +90,16 @@ class BowlingSystem(ABC):
         """ Get the last ID from SQL Server Table """
         query = """
             SELECT MAX({field}) as last_id FROM {table}
+        """
+        return self.mssql.raw_query(query.format(
+            field=field,
+            table=table_name
+        ), as_dict=False)[0][0]
+
+    def get_first_id_from_mssql(self, table_name:str, field: str):
+        """ Get the last ID from SQL Server Table """
+        query = """
+            SELECT MIN({field}) as first_id FROM {table}
         """
         return self.mssql.raw_query(query.format(
             field=field,

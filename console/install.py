@@ -91,4 +91,4 @@ elif system_is_installed:
         exit()
     mongoClient.close()
 else:
-    raise Exception(""" The .env vars isn't configured. Remember fill the .env file """)
+    raise Exception(""" The .env vars isn't configured. Remember fill the .env file for current environment """)

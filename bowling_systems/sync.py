@@ -17,7 +17,7 @@ class BrunswickSync(BowlingSystem):
         '[Sync].[dbo].[POSProducts]',
         '[Sync].[dbo].[RSVReservations]',
         '[Sync].[dbo].[RSVReservationTypes]',
-        '[Sync].[dbo].[MAGSessionGames]',
+        '[Sync].[dbo].[MAGActivitySegments]',
         '[Sync].[dbo].[TRNCashPayments]',
         '[Sync].[dbo].[TRNProducts]',
         '[Sync].[dbo].[POSProductGroups]',
@@ -28,7 +28,8 @@ class BrunswickSync(BowlingSystem):
     ]
 
     big_datums = [
-        '[Sync].[dbo].[APPLogPeripheralErrors]'
+        '[Sync].[dbo].[APPLogPeripheralErrors]',
+        '[Sync].[dbo].[MAGActivitySegments]'
     ]
 
     table_has_casts = {
@@ -53,7 +54,7 @@ class BrunswickSync(BowlingSystem):
         '[Sync].[dbo].[POSGroups]': 'ID',
         '[Sync].[dbo].[RSVReservations]': 'ID',
         '[Sync].[dbo].[RSVReservationTypes]': 'ID',
-        '[Sync].[dbo].[MAGSessionGames]': 'ID',
+        '[Sync].[dbo].[MAGActivitySegments]': 'ID',
         '[Sync].[dbo].[TRNCashPayments]': 'ID',
         '[Sync].[dbo].[TRNProducts]': 'ID',
         '[Sync].[dbo].[MAGLaneResources]': 'Name',
@@ -68,7 +69,7 @@ class BrunswickSync(BowlingSystem):
         '[Sync].[dbo].[POSGroups]':'groups',
         '[Sync].[dbo].[RSVReservations]': 'reservations',
         '[Sync].[dbo].[RSVReservationTypes]': 'reservation_types',
-        '[Sync].[dbo].[MAGSessionGames]': 'lanelogs',
+        '[Sync].[dbo].[MAGActivitySegments]': 'lanelogs',
         '[Sync].[dbo].[TRNCashPayments]': 'receipts',
         '[Sync].[dbo].[TRNProducts]': 'receipt_records',
         '[Sync].[dbo].[MAGLaneResources]': 'settings',
